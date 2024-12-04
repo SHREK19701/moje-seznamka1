@@ -131,8 +131,8 @@ button:hover {
     </header>
      
     <main>
-        <h2>Vyberte počet mincí k zakoupení a klikněte na tlačítko koupit, v poli quantity si vyberte číslo od (1-20)
-        (č1 =´500 mincí) (č 20 = 10000 mincí!):</h2>
+        <h2>Pro váš nákup mincí klikněte na tlačítko Donate a zadejte částku.</h2>
+        
         <select id="coinQuantity" onchange="updatePrice()">
             <option value="0">Vyberte množství</option>
             <option value="500">500 mincí / 250 Kč</option>
@@ -168,19 +168,8 @@ button:hover {
         <li><a href="komentare.html">Komentare</a></li>
     </ul>
 </nav>
-    
-    <main class="main-content">
-        <section class="payment-section">
-            <p>Pro zakoupení mincí klikněte na tlačítko níže:</p>
-            <a href="https://www.paypal.com/ncp/payment/76E9F6NKHAPVU" method="post" target="_top" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-  <input class="pp-76E9F6NKHAPVU" type="submit" value="Koupit" />
-  <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
-  <section> Využívá službu <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-</form></a>
-        </section>
-    </main>
-    <footer>
-        <p>&copy;Sexy-seznamka</p>
+  <footer>
+        <p>&copy;Sexy-dates</p>
     </footer>
     <script>
 
@@ -219,34 +208,6 @@ function updatePrice() {
     const totalCost = calculateTotalCost(quantity);
     document.getElementById('result').innerText = `Celková cena za ${quantity} mincí: ${totalCost} Kč`;
 }
-// Inicializace Stripe
-const stripe = Stripe('51QG24xAsqZIp6zSLLG8bHQ0JBZKhG0pIs14OfPA52oLYPmTh6ZftIlwgDbuwHM87RaV7XiqWGGmA1rin3z0mhDlf00SSA8UOsv'); // Zde zadej svůj veřejný klíč
-const elements = stripe.elements();
-
-// Vytvoření prvku pro kartu
-const cardElement = elements.create('card');
-cardElement.mount('#card-element');
-
-// Zpracování platby
-const form = document.getElementById('payment-form');
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-    });
-
-    if (error) {
-        // Zobrazení chyby
-        document.getElementById('card-errors').textContent = error.message;
-    } else {
-        // Platba byla úspěšná
-        document.getElementById('result').textContent = `Úspěšně zaplaceno: ${paymentMethod.id}`;
-        // Zde můžeš přidat další logiku, např. odeslání dat na server
-    }
-});
-
 </script>
 <script src="app.js"></script>
 </body>
