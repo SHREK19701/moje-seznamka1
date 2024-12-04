@@ -1,13 +1,5 @@
 const { Client } = require('pg');
 
-const client = new Client({
-    user: 'pestgres',
-    host: 'localhost',
-    database: 'localStorage',
-    password: 'Charalamba11@',
-    port: 5432,
-});
-
 // Funkce pro odeslání zprávy
 async function sendMessage(sender, recipient, message) {
     await client.connect();

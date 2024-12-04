@@ -91,10 +91,29 @@
         font-size: 16px;
         font-weight: bold;
     }
+<style>
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+
+    nav ul li a:hover {
+        color: #0056b3;
+    }
+</style>
+
 </style>
 </head>
 <body>
-
+      
 <div class="container">
     <h1>Registrace</h1>
 
@@ -140,20 +159,18 @@
 
         <button type="submit" id="registerButton">Registrovat</button>
     </form>
-
+<nav>
+    <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="prihlaseni.html">Prihlaseni</a></li>
+        <li><a href="komentare.html">Komentare</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="koupit-mince.html">Koupit-mince</a></li>
+    </ul>
+</nav>
     <div class="coin-info">
         <p>Počet mincí: <span id="coins">0</span></p>
     </div>
-
-       <ul>
-        <li><a href="registrace.html">Registrace</a></li>
-        <li><a href="prihlaseni.html">Prihlaseni</a></li>
-        <li><a href="profil.html">Profil</a></li>
-        <li><a href="chat.html">Chat</a></li>
-        <li><a href="koupit mince.html">Koupit mince</a></li>
-        <li><a href="komentare.html">Komentare</a></li>
-    </ul>
-
 <script>
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();

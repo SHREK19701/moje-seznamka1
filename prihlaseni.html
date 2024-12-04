@@ -70,10 +70,39 @@
         button:hover {
             background-color: #45a049;
         }
+    <style>
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+
+    nav ul li a:hover {
+        color: #0056b3;
+    }
+</style>
+
+    
     </style>
 </head>
 <body>
-
+ <nav>
+    <ul>
+        <li><a href="registrace.html">Registrace</a></li>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="profil.html">Profil</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="koupit-mince.html">Koupit-mince</a></li>
+        <li><a href="komentare.html">Komentare</a></li>
+    </ul>
+</nav>
     <header class="header">
         <h1>Přihlášení</h1>
     </header>
@@ -92,30 +121,26 @@
             <p id="loginMessage"></p>
         </section>
     </main>
-<nav>
-       <ul>
-        <li><a href="registrace.html">Registrace</a></li>
-        <li><a href="prihlaseni.html">Prihlaseni</a></li>
-        <li><a href="profil.html">Profil</a></li>
-        <li><a href="chat.html">Chat</a></li>
-        <li><a href="koupit mince.html">Koupit mince</a></li>
-        <li><a href="komentare.html">Komentare</a></li>
-    </ul>
-</nav>
+
+
     <script>
-        // Předdefinované přihlašovací údaje (pro účely testování)
-        const validUsername = '';
-        const validPassword = '';
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Zabráníme standardnímu odeslání formuláře
 
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Zabráníme standardnímu odeslání formuláře
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    // Načteme uživatelské údaje z localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
-        
-            if (username === validUsername && password === validPassword) {
-            
+    // Najdeme uživatele podle jména
+    const user = users.find(u => u.username === username);
+
+    if (user) {
+        // Ověříme heslo pomocí bcrypt, pokud je heslo správné
+        bcrypt.compare(password, user.password).then(match => {
+            if (match) {
+                // Pokud heslo odpovídá
                 localStorage.setItem('loggedIn', true);
                 localStorage.setItem('username', username);
 
@@ -133,6 +158,13 @@
                 document.getElementById('loginMessage').style.color = 'red';
             }
         });
+    } else {
+        // Zobrazení chybové zprávy
+        document.getElementById('loginMessage').textContent = 'Uživatel nenalezen.';
+        document.getElementById('loginMessage').style.color = 'red';
+    }
+});
+
     </script>
 
 </body>

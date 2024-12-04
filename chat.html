@@ -79,6 +79,26 @@
             text-align: center;
             margin-top: 20px;
         }
+    
+    <style>
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+
+    nav ul li a:hover {
+        color: #0056b3;
+    }
+</style>
+
     </style>
 </head>
 <body>
@@ -130,15 +150,16 @@
         <p>Vaše mince: <span id="coinBalance"></span></p>
     </div>
 <nav>
-      <ul>
+    <ul>
         <li><a href="registrace.html">Registrace</a></li>
         <li><a href="prihlaseni.html">Prihlaseni</a></li>
         <li><a href="profil.html">Profil</a></li>
         <li><a href="index.html">Index</a></li>
-        <li><a href="koupit mince.html">Koupit mince</a></li>
+        <li><a href="koupit-mince.html">Koupit-mince</a></li>
         <li><a href="komentare.html">Komentare</a></li>
     </ul>
 </nav>
+
     <script>
         let coinBalance;
 
