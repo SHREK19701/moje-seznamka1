@@ -50,15 +50,18 @@ io.on('connection', (socket) => {
         io.emit('chatMessage', msg); // Zasílání zpráv všem uživatelům
     });
 });
+// Hlavní stránka
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname,'index.html'));
 
 // Stránky a routy
 app.get('/', (req, res) => res.sendFile(path.join(__dirname,'index.html')));
-app.get('/registrace', (req, res) => res.sendFile(path.join(__dirname, 'registrace.html')));
-app.get('/prihlaseni', (req, res) => res.sendFile(path.join(__dirname, 'prihlaseni.html')));
-app.get('/profil', (req, res) => res.sendFile(path.join(__dirname, 'profil.html')));
-app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
-app.get('/koupit-mince', (req, res) => res.sendFile(path.join(__dirname, 'koupit-mince.html')));
-app.get('/komentare', (req, res) => res.sendFile(path.join(__dirname,'komentare.html')));
+app.get('/registrace', (req, res) => res.sendFile(path.join(__dirname,'registrace.html')));
+app.get('/prihlaseni', (req, res) => res.sendFile(path.join(__dirname,'přihlášení.html')));
+app.get('/profil', (req, res) => res.sendFile(path.join(__dirname,'profil.html')));
+app.get('/chat', (req, res) => res.sendFile(path.join(__dirname,'chat.html')));
+app.get('/koupit-mince', (req, res) => res.sendFile(path.join(__dirname,'koupit mince.html')));
+app.get('/komentare', (req, res) => res.sendFile(path.join(__dirname,'komentáře.html')));
 
 // Přihlášení
 app.post('/login', (req, res) => {
