@@ -41,7 +41,6 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // Složka pro statické soubory
 
 // Socket.IO události
 io.on('connection', (socket) => {
@@ -53,13 +52,13 @@ io.on('connection', (socket) => {
 });
 
 // Stránky a routy
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/registrace', (req, res) => res.sendFile(path.join(__dirname, 'public', 'registrace.html')));
-app.get('/prihlaseni', (req, res) => res.sendFile(path.join(__dirname, 'public', 'prihlaseni.html')));
-app.get('/profil', (req, res) => res.sendFile(path.join(__dirname, 'public', 'profil.html')));
-app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'public', 'chat.html')));
-app.get('/koupit-mince', (req, res) => res.sendFile(path.join(__dirname, 'public', 'koupit-mince.html')));
-app.get('/komentare', (req, res) => res.sendFile(path.join(__dirname, 'public', 'komentare.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname,'index.html')));
+app.get('/registrace', (req, res) => res.sendFile(path.join(__dirname, 'registrace.html')));
+app.get('/prihlaseni', (req, res) => res.sendFile(path.join(__dirname, 'prihlaseni.html')));
+app.get('/profil', (req, res) => res.sendFile(path.join(__dirname, 'profil.html')));
+app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
+app.get('/koupit-mince', (req, res) => res.sendFile(path.join(__dirname, 'koupit-mince.html')));
+app.get('/komentare', (req, res) => res.sendFile(path.join(__dirname,'komentare.html')));
 
 // Přihlášení
 app.post('/login', (req, res) => {
