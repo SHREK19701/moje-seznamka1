@@ -1,8 +1,8 @@
-// Event listener pro odesl·nÌ registracnÌho formul·re
+// Event listener pro odesl√°n√≠ registracn√≠ho formul√°re
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // NactenÌ hodnot z formul·re
+    // Nacten√≠ hodnot z formul√°re
     const email = document.getElementById('email').value;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -17,7 +17,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const orientation = document.getElementById('orientation').value;
     const search = document.getElementById('search').value;
 
-    // UloûenÌ dat do localStorage s bonusov˝mi mincemi
+    // Ulo≈æen√≠ dat do localStorage s bonusov√Ωmi mincemi
     localStorage.setItem('userProfile', JSON.stringify({
         email,
         username,
@@ -32,25 +32,23 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         hobbies,
         orientation,
         search,
-        coins: 500 // Bonus 500 mincÌ
+        coins: 500 // Bonus 500 minc√≠
     }));
 
-    // UloûenÌ bonusu 500 mincÌ prÌmo do localStorage pro zobrazenÌ
+    // Ulo≈æen√≠ bonusu 500 minc√≠ pr√≠mo do localStorage pro zobrazen√≠
     localStorage.setItem('userCoins', 500);
 
-    alert("Bonus 500 mincÌ byl prid·n na v·ö ˙cet!");
-
-    // Presmerov·nÌ po registraci
+    // Presmerov√°n√≠ po registraci
     window.location.href = 'profil.html';
 });
 
-// ZobrazenÌ mincÌ na str·nce po prihl·öenÌ nebo presmerov·nÌ
+// Zobrazen√≠ minc√≠ na str√°nce po prihl√°≈°en√≠ nebo presmerov√°n√≠
 window.addEventListener('load', function() {
     const coins = localStorage.getItem('userCoins');
     if (coins) {
         document.getElementById('coins').innerText = coins;
     } else {
-        document.getElementById('coins').innerText = '0';
+        document.getElementById('coins').innerText = '500';
     }
 });
 

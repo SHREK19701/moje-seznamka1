@@ -1,41 +1,34 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Zabráníme standardnímu odeslání formuláře
+document.getElementById("loginButton").addEventListener("click", function () {
+  const enteredEmail = document.getElementById("email").value.trim();
+  const enteredPassword = document.getElementById("password").value.trim();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+  console.log("Zadaný email:", enteredEmail);
+  console.log("Zadané heslo:", enteredPassword);
 
-    // Načteme uživatelské údaje z localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+  // Načítáme uživatelský profil ze `localStorage`
+  const storedUserData = localStorage.getItem("userProfile");
 
-    // Najdeme uživatele podle jména
-    const user = users.find(u => u.username === username);
+  if (!storedUserData) {
+    console.error("Uživatelská data nebyla nalezena v localStorage.");
+    alert("Uživatel nenalezen. Zkontrolujte svůj email.");
+    return;
+  }
 
-    if (user) {
-        // Ověříme heslo pomocí bcrypt, pokud je heslo správné
-        bcrypt.compare(password, user.password).then(match => {
-            if (match) {
-                // Pokud heslo odpovídá
-                localStorage.setItem('loggedIn', true);
-                localStorage.setItem('username', username);
+  // Parsujeme uložený JSON
+  const parsedUserData = JSON.parse(storedUserData);
 
-                // Zobrazení úspěšné zprávy
-                document.getElementById('loginMessage').textContent = 'Byli jste úspěšně přihlášeni!';
-                document.getElementById('loginMessage').style.color = 'green';
-
-                // Přesměrování na jinou stránku (např. na chat)
-                setTimeout(function() {
-                    window.location.href = 'chat.html'; // Nahraďte vlastní cílovou stránkou
-                }, 2000); // Po 2 sekundách přesměrování na chat
-            } else {
-                // Zobrazení chybové zprávy
-                document.getElementById('loginMessage').textContent = 'Chybné přihlašovací údaje, zkuste to prosím znovu.';
-                document.getElementById('loginMessage').style.color = 'red';
-            }
-        });
+  // Kontrolujeme email a heslo
+  if (parsedUserData.email === enteredEmail) {
+    if (parsedUserData.password === enteredPassword) {
+      alert("Přihlášení úspěšné! Vítejte, " + parsedUserData.username);
+      window.location.href = "profil.html"; // Přesměrování na profil
     } else {
-        // Zobrazení chybové zprávy
-        document.getElementById('loginMessage').textContent = 'Uživatel nenalezen.';
-        document.getElementById('loginMessage').style.color = 'red';
+      console.error("Chybné heslo pro uživatele:", enteredEmail);
+      alert("Chybné heslo.");
     }
+  } else {
+    console.error("Zadaný email nebyl nalezen v uživatelských datech.");
+    alert("Uživatel nenalezen. Zkontrolujte svůj email.");
+  }
 });
 
