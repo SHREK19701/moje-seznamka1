@@ -15,7 +15,7 @@ function validateRegistration(event) {
     let currentUser = {
     username: 'User123', // Zde bude uživatelské jméno
     email: 'user@example.com', // Zde bude email
-    tokenCount: 200 // Počet žetonů
+    tokenCount: 500 // Počet žetonů
 };
 
 
@@ -124,10 +124,10 @@ window.onload = function() {
 
 
 // Inicializace tokenCount a zobrazení
-    tokenCount = 200;
+    tokenCount = 500;
     updateTokenDisplay();
 
-    alert("Registrace proběhla úspěšně! Získali jste 200 žetonů.");
+    alert("Registrace proběhla úspěšně! Získali jste 500 žetonů.");
     displayProfile();
     return false; // Zabránit obnovení stránky
 }
