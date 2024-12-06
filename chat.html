@@ -147,7 +147,7 @@
     <button onclick="toggleEmojiList()">Zobrazit smajlíky</button>
 
     <div class="balance">
-        <p>Vaše mince: <span id="coinBalance"></span></p>
+        <p>Vaše mince: <span id="coinBalance">0</span></p>
     </div>
 <nav>
     <ul>
@@ -161,17 +161,17 @@
 </nav>
 
     <script>
-        let coinBalance;
+        let coinBalance;0
 
    
         function initializeCoins() {
         
-            if (node_env.getItem('coinBalance')) {
-                coinBalance = parseInt(node_env.getItem('coinBalance'));
+            if (localStorage.getItem('coinBalance')) {
+                coinBalance = parseInt(localStorage.getItem('coinBalance'));
             } else {
               
                 coinBalance = 500;
-                node_env.setItem('coinBalance', coinBalance); 
+                localStorage.setItem('coinBalance', coinBalance); 
             }
             // Aktualizujeme zobrazení mincí
             document.getElementById('coinBalance').textContent = coinBalance;
