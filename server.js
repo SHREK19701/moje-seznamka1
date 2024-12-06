@@ -10,7 +10,7 @@ const server = http.createServer(app);  // Vytvoření serveru
 // Připojovací řetězec pro PostgreSQL
 const pool = new Pool({
     user: 'postgres', // Uprav dle svého uživatele
-    host: 'localhost', // Pokud běží na localhostu
+    host: 'http://127.0.01', // Pokud běží na localhostu
     database: 'node_env', // Název tvé databáze
     password: 'Charalamba11@', // Tvé heslo
     port: 5432, // Výchozí port PostgreSQL
