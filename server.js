@@ -1,4 +1,3 @@
-require('dotenv').config(); // Načtení environmentálních proměnných z .env
 const path = require('path');
 const express = require('express');
 const { Pool } = require('pg');

@@ -26,15 +26,15 @@
         box-sizing: border-box;
         text-align: center;
     }
-
-    .header {
-        background-color: #800080; /* Fialová barva */
-        color: white;
-        padding: 15px 0;
-        border-radius: 8px 8px 0 0;
-        font-size: 24px;
-        font-weight: bold;
-    }
+      .header {
+            background-color: #800080;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
 
     form {
         display: flex;
@@ -108,7 +108,6 @@
     nav ul li a:hover {
         color: #0056b3;
     }
-</style>
 
 </style>
 </head>
@@ -119,7 +118,7 @@
 
     <form id="registrationForm">
         <label for="email">E-mail</label>
-        <input type="email" id="email" required placeholder="Zadejte e-mail">
+        <input type="email" id="email" required placeholder="Zadejte e-mail"></span>
 
         <label for="username">Uživatelské jméno</label>
         <input type="text" id="username" required placeholder="Zadejte uživatelské jméno">
@@ -189,8 +188,8 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const orientation = document.getElementById('orientation').value;
     const search = document.getElementById('search').value;
 
-    // Uložení dat do localStorage s bonusovými mincemi
-    localStorage.setItem('userProfile', JSON.stringify({
+    // Uložení dat do node_env s bonusovými mincemi
+    node_env.setItem('userProfile', JSON.stringify({
         email,
         username,
         password,
@@ -207,8 +206,8 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         coins: 500 // Bonus 500 mincí
     }));
 
-    // Uložení bonusu 500 mincí přímo do localStorage pro zobrazení
-    localStorage.setItem('userCoins', 500);
+    // Uložení bonusu 500 mincí přímo do node_env pro zobrazení
+    node_env.setItem('userCoins', 500);
 
     alert("Bonus 500 mincí byl přidán na váš účet!");
 
@@ -218,7 +217,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
 
 // Zobrazení mincí na stránce po přihlášení nebo přesměrování
 window.addEventListener('load', function() {
-    const coins = localStorage.getItem('userCoins');
+    const coins = node_env.getItem('userCoins');
     if (coins) {
         document.getElementById('coins').innerText = coins;
     } else {

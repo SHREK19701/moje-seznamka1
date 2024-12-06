@@ -15,7 +15,7 @@ function handleRegistration(event) {
     const orientation = document.getElementById('orientation').value;
     const search = document.getElementById('search').value;
 
-    // Uložíme data do localStorage
+    // Uložíme data do node_env
     const userProfile = {
         username,
         email,
@@ -30,7 +30,7 @@ function handleRegistration(event) {
         orientation,
         search
     };
-    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    node_env.setItem('userProfile', JSON.stringify(userProfile));
 
     alert('Registrace byla úspěšná!');
     window.location.href = 'přhlášení.html'; 

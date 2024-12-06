@@ -104,7 +104,7 @@
 <body>
 
     <div class="chat-container">
-        <h2>Chat s emotikony a mincemi</h2>
+        <h2>Chat</h2>
         <div id="messages"></div>
         <textarea id="messageInput" placeholder="Napište zprávu..." rows="4"></textarea>
         <button id="sendButton" onclick="sendMessage()">Odeslat zprávu</button>
@@ -166,12 +166,12 @@
    
         function initializeCoins() {
         
-            if (localStorage.getItem('coinBalance')) {
-                coinBalance = parseInt(localStorage.getItem('coinBalance'));
+            if (node_env.getItem('coinBalance')) {
+                coinBalance = parseInt(node_env.getItem('coinBalance'));
             } else {
               
                 coinBalance = 500;
-                localStorage.setItem('coinBalance', coinBalance); 
+                node_env.setItem('coinBalance', coinBalance); 
             }
             // Aktualizujeme zobrazení mincí
             document.getElementById('coinBalance').textContent = coinBalance;
@@ -216,7 +216,6 @@
         window.onload = initializeCoins;
     </script>
 <script src="js/api.js"></script>
-<script src="js/chat.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 </body>
 </html>

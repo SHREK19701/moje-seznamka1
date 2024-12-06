@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>klient</title>
+    <title>profil</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -146,8 +146,8 @@
             reader.onloadend = function () {
                 const imageData = reader.result;  // Získat obrázek jako data URL
 
-                // Uložit obrázek do localStorage
-                localStorage.setItem('profileImage', imageData);
+                // Uložit obrázek do node_env
+                node_env.setItem('profileImage', imageData);
 
                 // Zobrazit obrázek na stránce
                 const profileImage = document.getElementById('profileImage');

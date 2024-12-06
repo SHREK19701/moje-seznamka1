@@ -15,7 +15,7 @@ function validateRegistration(event) {
     let currentUser = {
     username: 'User123', // Zde bude uživatelské jméno
     email: 'user@example.com', // Zde bude email
-    tokenCount: 200 // Počet žetonů
+    tokenCount: 500 // Počet žetonů
 };
 
 
@@ -91,12 +91,12 @@ function uploadPhoto() {
         imgElement.src = event.target.result;
         imgElement.style.display = "block";
 
-        // Uložení obrázku do localStorage
+        // Uložení obrázku do node_env
         try {
-            localStorage.setItem("profilePhoto", event.target.result);
+         node_env.setItem("profilePhoto", event.target.result);
             alert("Fotka byla úspěšně nahrána!");
         } catch (error) {
-            alert("Došlo k chybě při ukládání fotky do localStorage.");
+            alert("Došlo k chybě při ukládání fotky node_env.");
             console.error("Error:", error);
         }
     };
@@ -124,10 +124,10 @@ window.onload = function() {
 
 
 // Inicializace tokenCount a zobrazení
-    tokenCount = 200;
+    tokenCount = 500;
     updateTokenDisplay();
 
-    alert("Registrace proběhla úspěšně! Získali jste 200 žetonů.");
+    alert("Registrace proběhla úspěšně! Získali jste 500 žetonů.");
     displayProfile();
     return false; // Zabránit obnovení stránky
 }
@@ -190,20 +190,20 @@ function sendMessage() {
     messageElement.textContent = message;
     messageContainer.appendChild(messageElement);
 
-    tokenCount -= 50; // Odečíst 30 žetonů za odeslání zprávy
+    tokenCount -= 50; // Odečíst 50 žetonů za odeslání zprávy
     updateTokenDisplay(); // Aktualizovat zobrazení počtu žetonů
 
-    // Uložit zprávu do localStorage
-    const messages = JSON.parse(localStorage.getItem("message") || "[]");
+    // Uložit zprávu do node_env
+    const messages = JSON.parse(node_env.getItem("message") || "[]");
     messages.push(message);
-    localStorage.setItem("message", JSON.stringify(messages));
+    node_env.setItem("message", JSON.stringify(messages));
 
     messageInput.value = ''; // Vymazat vstup pro zprávu
 }
 
 // Funkce pro načtení historie zpráv
 function loadMessageHistory() {
-    const messages = JSON.parse(localStorage.getItem("message") || "[]");
+    const messages = JSON.parse(node_env.getItem("message") || "[]");
     const messageContainer = document.getElementById('message-container');
     messages.forEach(msg => {
         const messageElement = document.createElement('div');
@@ -235,7 +235,7 @@ window.onload = function() {
     loadMessageHistory();
 };
 
-// Přidání uživatelských dat do localStorage po registraci
+// Přidání uživatelských dat do node_env po registraci
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -244,7 +244,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         username: username,
         tokens: tokenCount
     };
-  localStorage.setItem("userData", JSON.stringify(userData));
+  node_env.setItem("userData", JSON.stringify(userData));
 
     validateRegistration(event);
 });

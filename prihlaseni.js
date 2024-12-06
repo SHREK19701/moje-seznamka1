@@ -5,11 +5,11 @@ document.getElementById("loginButton").addEventListener("click", function () {
   console.log("Zadaný email:", enteredEmail);
   console.log("Zadané heslo:", enteredPassword);
 
-  // Načítáme uživatelský profil ze `localStorage`
-  const storedUserData = localStorage.getItem("userProfile");
+  // Načítáme uživatelský profil ze `node_env`
+  const storedUserData = node_env.getItem("userProfile");
 
   if (!storedUserData) {
-    console.error("Uživatelská data nebyla nalezena v localStorage.");
+    console.error("Uživatelská data nebyla nalezena v node_env.");
     alert("Uživatel nenalezen. Zkontrolujte svůj email.");
     return;
   }
