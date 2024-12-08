@@ -189,7 +189,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const search = document.getElementById('search').value;
 
     // Uložení dat do localStorage s bonusovými mincemi
-    localStorage.setItem('userProfile', JSON.stringify({
+    localStorage .setItem('userProfile', JSON.stringify({
         email,
         username,
         password,
@@ -206,8 +206,8 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         coins: 500 // Bonus 500 mincí
     }));
 
-    // Uložení bonusu 500 mincí přímo do localStorage pro zobrazení
-    localStorage.setItem('userCoins', 500);
+    // Uložení bonusu 500 mincí přímo do localStorage  pro zobrazení
+    localStorage .setItem('userCoins', 500);
 
     alert("Bonus 500 mincí byl přidán na váš účet!");
 
@@ -217,7 +217,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
 
 // Zobrazení mincí na stránce po přihlášení nebo přesměrování
 window.addEventListener('load', function() {
-    const coins = localStorage.getItem('userCoins');
+    const coins = localStorage .getItem('userCoins');
     if (coins) {
         document.getElementById('coins').innerText = coins;
     } else {
@@ -225,8 +225,6 @@ window.addEventListener('load', function() {
     }
 });
 </script>
-<script src="registrace.js"></script>
-<script src="js/api.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 </body>
 </html>

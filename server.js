@@ -1,66 +1,57 @@
+const bcrypt = require('bcrypt');
 const path = require('path');
 const express = require('express');
-const { Pool } = require('pg');
 const bodyParser = require('body-parser');
-const http = require('http');  // Pro spuštění HTTP serveru
-const socketIo = require('socket.io');  // Import socket.io
+const http = require('http'); // Pro spuštění HTTP serveru
+const socketIo = require('socket.io'); // Import socket.io
 const app = express();
-const server = http.createServer(app);  // Vytvoření serveru
+const server = http.createServer(app); // Vytvoření serveru
 
-// Připojovací řetězec pro PostgreSQL
-const pool = new Pool({
-    user: 'postgres', // Uprav dle svého uživatele
-    host: 'localhost', // Pokud běží na localhostu
-    database: 'node_env', // Název tvé databáze
-    password: 'Charalamba11@', // Tvé heslo
-    port: 5432, // Výchozí port PostgreSQL
-});
+// Simulovaný pool bez databáze
+const pool = {
+  connect: async () => {
+    console.log('Simulované připojení k databázi.');
+    return {
+      query: async (sql, params) => {
+        console.log(`Simulovaný SQL dotaz: ${sql}, Parametry: ${params}`);
+        return { rows: [{ message: 'Simulovaná odpověď' }] };
+      },
+      release: () => {
+        console.log('Simulované připojení uvolněno.');
+      }
+    };
+  },
+  query: async (sql, params) => {
+    console.log(`Simulovaný SQL dotaz: ${sql}, Parametry: ${params}`);
+    return { rows: [{ message: 'Simulovaná odpověď' }] };
+  }
+};
+
 // Middleware
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '')));
 
-// Test připojení k databázi
+// Test připojení k simulované databázi
 pool.connect()
   .then(client => {
-    console.log('Připojeno k databázi');
+    console.log('Připojeno k simulované databázi');
     client.release();
   })
   .catch(err => {
-    console.error('Chyba při připojování k databázi:', err);
+    console.error('Chyba při připojování k simulované databázi:', err);
   });
 
-// API endpointy
-app.post('/api/registrace', async (req, res) => {
-  const { username, email, password } = req.body;
+// Funkce pro registraci uživatele
+async function registrujUzivatele(email, heslo) {
   try {
-    const result = await pool.query(
-      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
-      [username, email, password]
-    );
-    res.status(201).json({ message: 'Uživatel registrován', userId: result.rows[0].id });
+    const hashedPassword = await bcrypt.hash(heslo, 10); // Zahashování hesla
+    const query = 'INSERT INTO prihlaseni (email, heslo) VALUES ($1, $2)';
+    await pool.query(query, [email, hashedPassword]);
+    console.log('Uživatel úspěšně zaregistrován');
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Chyba při registraci' });
+    console.error('Chyba při registraci:', err);
   }
-});
-
-app.post('/api/prihlaseni', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const result = await pool.query(
-      'SELECT * FROM users WHERE email = $1 AND password = $2',
-      [email, password]
-    );
-    if (result.rows.length > 0) {
-      res.json({ message: 'Přihlášení úspěšné', user: result.rows[0] });
-    } else {
-      res.status(401).json({ error: 'Špatné přihlašovací údaje' });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Chyba při přihlášení' });
-  }
-});
+}
 
 // Statické stránky
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
@@ -68,8 +59,9 @@ app.get('/registrace', (req, res) => res.sendFile(path.join(__dirname, 'registra
 app.get('/prihlaseni', (req, res) => res.sendFile(path.join(__dirname, 'prihlaseni.html')));
 app.get('/profil', (req, res) => res.sendFile(path.join(__dirname, 'profil.html')));
 app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
+
 // Nastavení Socket.IO pro reálný čas
-const io = socketIo(server); // Připojíme Socket.IO k serveru
+const io = socketIo(server);
 
 // Uživatel se připojí
 io.on('connection', (socket) => {
@@ -77,7 +69,6 @@ io.on('connection', (socket) => {
 
   // Posílání zpráv
   socket.on('send_message', (data) => {
-    // Zde by bylo možné zprávu uložit do databáze, pokud by bylo potřeba
     console.log('Zpráva přijatá:', data);
     io.emit('receive_message', data); // Posílání zprávy všem připojeným klientům
   });

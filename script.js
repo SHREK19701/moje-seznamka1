@@ -1,4 +1,4 @@
-let tokenCount = 0; // Počet žetonů na začátku
+let tokenCount = 500; // Počet žetonů na začátku
 
 // Funkce pro validaci registrace
 function validateRegistration(event) {
@@ -91,12 +91,12 @@ function uploadPhoto() {
         imgElement.src = event.target.result;
         imgElement.style.display = "block";
 
-        // Uložení obrázku do node_env
+        // Uložení obrázku do localStorage
         try {
-         node_env.setItem("profilePhoto", event.target.result);
+         localStorage.setItem("profilePhoto", event.target.result);
             alert("Fotka byla úspěšně nahrána!");
         } catch (error) {
-            alert("Došlo k chybě při ukládání fotky node_env.");
+            alert("Došlo k chybě při ukládání fotky localStorage.");
             console.error("Error:", error);
         }
     };
@@ -193,17 +193,17 @@ function sendMessage() {
     tokenCount -= 50; // Odečíst 50 žetonů za odeslání zprávy
     updateTokenDisplay(); // Aktualizovat zobrazení počtu žetonů
 
-    // Uložit zprávu do node_env
-    const messages = JSON.parse(node_env.getItem("message") || "[]");
+    // Uložit zprávu do localStorage
+    const messages = JSON.parse(localStorage.getItem("message") || "[]");
     messages.push(message);
-    node_env.setItem("message", JSON.stringify(messages));
+    localStorage.setItem("message", JSON.stringify(messages));
 
     messageInput.value = ''; // Vymazat vstup pro zprávu
 }
 
 // Funkce pro načtení historie zpráv
 function loadMessageHistory() {
-    const messages = JSON.parse(node_env.getItem("message") || "[]");
+    const messages = JSON.parse(localStorage.getItem("message") || "[]");
     const messageContainer = document.getElementById('message-container');
     messages.forEach(msg => {
         const messageElement = document.createElement('div');
@@ -235,7 +235,7 @@ window.onload = function() {
     loadMessageHistory();
 };
 
-// Přidání uživatelských dat do node_env po registraci
+// Přidání uživatelských dat do localStorage po registraci
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -244,7 +244,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         username: username,
         tokens: tokenCount
     };
-  node_env.setItem("userData", JSON.stringify(userData));
+  localStorage.setItem("userData", JSON.stringify(userData));
 
     validateRegistration(event);
 });

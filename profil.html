@@ -146,8 +146,8 @@
             reader.onloadend = function () {
                 const imageData = reader.result;  // Získat obrázek jako data URL
 
-                // Uložit obrázek do node_env
-                node_env.setItem('profileImage', imageData);
+                // Uložit obrázek do localstorage
+                localStorage.setItem('profileImage', imageData);
 
                 // Zobrazit obrázek na stránce
                 const profileImage = document.getElementById('profileImage');
@@ -165,8 +165,6 @@
             reader.readAsDataURL(file);  // Číst soubor jako data URL
         });
     </script>
-<script src="js/api.js"></script>
-<script src="profil.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 </body>
 </html>
